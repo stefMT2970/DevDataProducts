@@ -1,2 +1,2 @@
-# DevDataProducts
-Developing a Shiny demo application
+# Developing Data Products
+Developing a Shiny demo application.
