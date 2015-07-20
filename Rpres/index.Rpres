@@ -1,0 +1,76 @@
+Visualisation of Standard Distributions
+========================================================
+author: Stefan
+date: `r format(Sys.Date(), format="%B %d %Y")`
+transition: linear
+
+<small> 
+Coursera Data Science Specialization
+Project assignment
+</small>
+
+Purpose of the shiny app
+========================================================
+
+The application attempts to visualise common standard probability distributions by comparing the histogram of random draws with the theoretical distribution.
+
+- Normal Distribution
+- Poisson Distribution
+- Chi Square Distribution
+- Student's t Distribution
+
+
+For each distribution following items are shows :
+- histogram of random draws
+- mean of the the random draws as vertical line
+- theoretical distribution as blue curve 
+
+Example for Chi Square Distribution
+========================================================
+The PDF (probability density function) for the chi square distribution is parametrised by the degrees of freedom. The larger the sample size of random draws, the closer the result will match the theoretical distribution. 
+
+
+```{r, echo=FALSE}
+chisqSize = 1000
+chisqV = 20
+chisqGraph = rchisq(chisqSize, chisqV)
+px = seq(0, chisqSize, 0.1)
+py = dchisq(px, chisqV)
+h=hist(chisqGraph,
+       col="red", breaks = 30,
+       main = paste(chisqSize, " random draws with ", chisqV, " degrees of freedom"),
+       xlab ="Randow draw value",
+       freq= FALSE,
+       ylim =c(0, max(py)))
+abline(v=mean(chisqGraph), col="black", lwd="2")
+lines(px, py, col="blue", lwd="2")
+
+```
+
+Example for Poisson Distribution
+========================================================
+The Poisson distribution is the only discrete probability distribution in this app and therefore points are used to show the theoretical distribution.
+
+```{r, echo=FALSE}
+poisSize = 1000
+poisLambda = 5
+poisGraph = rpois(poisSize, poisLambda)
+px = seq(0, poisLambda * 4, 1)
+py = dpois(px, poisLambda)
+h=hist(poisGraph,
+       col="red",
+       main = paste(poisSize, " random draws with lambda =", poisLambda),
+       xlab ="Randow draw value (count)",
+       freq= FALSE,
+       ylim =c(0, max(py)))
+abline(v=mean(poisGraph), col="black", lwd="2")
+points(px, py, pch=19, col="blue")
+
+```
+
+Extendibility
+========================================================
+The server.R and ui.R source code are written in such a way that the app can be extended very easily with more distritubions.
+
+Visit https://github.com/stefMT2970/DevDataProducts  
+download and simply modify the code.
